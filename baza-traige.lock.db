@@ -1,0 +1,6 @@
+#FileLock
+#Tue Feb 02 21:26:03 CET 2021
+server=192.168.0.14\:62125
+hostName=192.168.0.14
+method=file
+id=177646c65c51df45ca90cb833954950ad28eadf5f64

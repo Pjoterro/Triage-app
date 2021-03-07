@@ -1,0 +1,61 @@
+.body {
+    width: 700px;
+    padding: 5px;
+    margin: 5px;
+    font-family: sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.menu {
+    font-size: 0.8em;
+    margin: 0px;
+    padding-bottom: 5px;
+}
+
+.title {
+    border: solid 2px;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.2em;
+    width: 696px;
+    margin-bottom: 5px;
+}
+
+.menu_item {
+    text-align: center;
+    border-color: white;
+}
+
+#patient_data {
+    margin-bottom: 5px;
+}
+
+#triage_data {
+    margin-bottom: 5px;
+}
+
+th {
+    text-align: center;
+}
+
+td, tr, th {
+    font-size: 1.15em;
+    border: solid black 1px;
+    padding: 3px;
+}
+
+td {
+    width: 50%
+}
+
+#data_name {
+    text-align: right;
+}
+
+#result {
+    text-align: left;
+}

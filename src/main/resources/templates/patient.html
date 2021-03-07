@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/single_patient.css" th:href="@{/css/single_patient.css}" rel="stylesheet"/>
+    <title th:text="'Triage 1.0'">"</title>
+</head>
+<body class="body">
+<div class="menu">
+    <table>
+        <tr>
+            <td class="menu_item"><a href="/addPatient">- Dodaj nowego pacjenta -</a></td>
+            <td class="menu_item"><a href="/patients">- Lista pacjentów -</a></td>
+        </tr>
+    </table>
+</div>
+<div class="title" th:style="'background-color:' + ${exam.getPriorityLevel().getColor()}">
+    <h2 th:text="${patient.getName} + ' ' + ${patient.getSurname}"></h2>
+</div>
+<div>
+    <table id="patient_data">
+        <tr>
+            <th colspan="2">Dane pacjenta:</th>
+        </tr>
+        <tr>
+            <td id="data_name">PESEL:</td>
+            <td id="result"><b th:text="${patient.getIdentificationNumber}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Czy pacjent posiada<br>ubezpieczenie zdrowotne:</td>
+            <td id="result"><b th:text="${patient.getHasMedicalInsurance}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Wiek:</td>
+            <td id="result"><b th:text="${patient.getAge}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Płeć:</td>
+            <td id="result"><b th:text="${patient.getGender}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Czy pacjent posiada<br>polskie obywatelstwo:</td>
+            <td id="result"><b th:text="${patient.getHasPolishCitizenship}"></b></td>
+        </tr>
+    </table>
+    <table id="triage_data">
+        <tr>
+            <th colspan="2">Wyniki ostatniego triagu:</th>
+        </tr>
+        <tr>
+            <td id="data_name">Poziom świadomości:</td>
+            <td id="result"><b th:text="${exam.getConsciousness.level}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">GCS:</td>
+            <td id="result"><b th:text="${exam.getGcs}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Saturacja bez tlenu:</td>
+            <td id="result"><b th:text="${exam.getOxygenSaturation} + '%'"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Glikemia:</td>
+            <td id="result"><b th:text="${exam.getGlucoseLevel} + ' mg%'"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Temperatura powierzchniowa:</td>
+            <td id="result"><b th:text="${exam.getBodyTemperature} + ' °C'"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Czas powrotu kapilarnego:</td>
+            <td id="result"><b th:text="${exam.getCapillaryRefill} + ' s'"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Skala bólu 0-10:</td>
+            <td id="result"><b th:text="${exam.getPainLevel.level}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Liczba oddechów na minutę:</td>
+            <td id="result"><b th:text="${exam.getBreathsNumberPerMinute}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Tętno:</td>
+            <td id="result"><b th:text="${exam.getPulse}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Czy pacjent był wcześniej na innym oddziale ratunkowym:</td>
+            <td id="result"><b th:text="${exam.getHasPatientVisitedAnotherED}"></b></td>
+        </tr>
+        <tr>
+            <td id="data_name">Priorytet:</td>
+            <td id="result"><b th:text="${exam.getPriorityLevel}"></b></td>
+        </tr>
+    </table>
+</div>
+<div class="menu">
+<table>
+    <tr>
+        <td class="menu_item"><a th:href="@{/delete/{id}(id=${patient.getId()})}">- Usuń pacjenta -</a></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

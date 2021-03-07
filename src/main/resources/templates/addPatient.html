@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/add_patient.css" th:href="@{/css/add_patient.css}" rel="stylesheet" />
+    <title th:text="'Triage 1.0'">"</title>
+</head>
+<body class="body">
+<div class="menu">
+    <table>
+        <tr>
+            <td class="menu_item"><a href="/addPatient">- Dodaj nowego pacjenta -</a></td>
+            <td class="menu_item"><a href="/patients">- Lista pacjentów -</a></td>
+        </tr>
+    </table>
+</div>
+<div class = "title">
+    <h2>Dodaj nowego pacjenta:</h2>
+</div>
+<div>
+<form method="post" th:action="@{/addPatient}" th:object="${patientDTO}">
+    <table id="patient_data">
+        <tr>
+            <th colspan="2">Dane pacjenta:</th>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="nameInput">Imię pacjenta:</label></td>
+            <td id="result"><input id="nameInput" type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="surnameInput">Nazwisko pacjenta:</label></td>
+            <td id="result"><input id="surnameInput" type="text" th:field="*{surname}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><labeL for="identificationNumberInput">Nr PESEL:</labeL></td>
+            <td id="result"><input id="identificationNumberInput" type="text" th:field="*{identificationNumber}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><labeL for="genderInput">Płeć:</labeL></td>
+            <td id="result"><input id="genderInput" type="radio" th:field="*{gender}" th:value="MALE" th:text="'Mężczyzna'">
+            <input type="radio" th:field="*{gender}" th:value="FEMALE" th:text="'Kobieta'"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label>Czy posiada ubezpieczenie medyczne:</label></td>
+            <td id="result"><input type="radio" th:field="*{hasMedicalInsurance}" th:value="true" th:text="'Tak'">
+            <input type="radio" th:field="*{hasMedicalInsurance}" th:value="false" th:text="'Nie'"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="ageInput">Wiek pacjenta:</label></td>
+            <td id="result"><input id="ageInput" type="number" th:field="*{age}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label>Czy posiada polskie obywatelstwo:</label></td>
+            <td id="result"><input type="radio" th:field="*{hasPolishCitizenship}" th:value="true" th:text="'Tak'">
+            <input type="radio" th:field="*{hasPolishCitizenship}" th:value="false" th:text="'Nie'"></td>
+        </tr>
+    </table>
+    <table id="triage_data">
+    <div th:object="${exam}">
+        <tr>
+            <th colspan="2">Wyniki triagu:</th>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="consciousnessInput">Poziom świadomości:</label></td>
+            <td id="result"><select id="consciousnessInput" th:field="*{consciousness}">
+                <option th:each="level : ${T(com.piotrtwardowski.triage.enums.ConsciousnessLevel).values()}"
+                th:value="${level}" th:text="${level.getName()}"></option>
+            </select></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="gcsInput">GCS:</label></td>
+            <td id="result"><input id="gcsInput" type="number" min="3" max="15" placeholder="3 - 15" th:field="*{gcs}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="oxygenInput">Poziom tlenu:</label></td>
+            <td id="result"><input id="oxygenInput" type="number" min="0" max="100" placeholder="0 - 100%" th:field="*{oxygenSaturation}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="glucoseInput">Poziom glukozy we krwi:</label></td>
+            <td id="result"><input id="glucoseInput" type="number" min="0" placeholder="<40 - 200 mg%<" th:field="*{glucoseLevel}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="temperatureInput">Temperatura powierzchniowa:</label></td>
+            <td id="result"><input id="temperatureInput" type="number" step="0.1" placeholder="<30 - 41 °C<" th:field="*{bodyTemperature}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="capillaryInput">Czas powrotu kapilarnego:</label></td>
+            <td id="result"><input id="capillaryInput" type="number" min="1" placeholder="1 - 3 s<" th:field="*{capillaryRefill}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="painInput">Poziom bólu:</label></td>
+            <td id="result"><select id="painInput" th:field="*{painLevel}">
+                <option th:each="level : ${T(com.piotrtwardowski.triage.enums.PainLevel).values()}"
+                        th:value="${level}" th:text="${level.getName()}"></option>
+            </select></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="breathsInput">Ilość oddechów na minutę:</label></td>
+            <td id="result"><input id="breathsInput" type="number" min="0" placeholder="<9 - 30<" th:field="*{breathsNumberPerMinute}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label for="pulseInput">Tętno:</label></td>
+            <td id="result"><input id="pulseInput" type="number" min="0" placeholder="<50 - 120<" th:field="*{pulse}"></td>
+        </tr>
+        <tr>
+            <td id="data_name"><label>Czy pacjent był wcześniej na innym oddzile ratunkowym:</label></td>
+            <td id="result"><input type="radio" th:field="*{hasPatientVisitedAnotherED}" th:value="true" th:text="'Tak'">
+                <input type="radio" th:field="*{hasPatientVisitedAnotherED}" th:value="false" th:text="'Nie'"></td>
+        </tr>
+    </div>
+    </table>
+    <div id="submit_button">
+    <button type="submit">Dodaj pacjenta</button>
+    </div>
+</form>
+</div>
+</body>
+</html>

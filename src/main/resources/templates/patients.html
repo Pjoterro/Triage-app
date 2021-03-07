@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista oczekujących pacjentów</title>
+    <link href="../static/css/patient_list.css" th:href="@{/css/patient_list.css}" rel="stylesheet" />
+</head>
+<body class="body">
+<div class="menu">
+    <table>
+        <tr>
+            <td class="menu_item"><a href="/addPatient">- Dodaj nowego pacjenta -</a></td>
+            <td class="menu_item"><a href="/patients">- Lista pacjentów -</a></td>
+        </tr>
+    </table>
+</div>
+<div class = "title">
+    <h2>Lista oczekujących pacjentów:</h2>
+</div>
+
+<patientList>
+    <patient th:each="patient : ${patients}">
+        <a th:href="@{/patient/{id}(id=${patient.id})}">
+        <span style="float: left" th:text="${patient.name} + ' ' + ${patient.surname}"></span>
+        <span style="float: right" id="rectangle" th:styleappend="';background-color:' + ${patient.getLatestMedicalExamination().getPriorityLevel().getColor()}"></span>
+        </a>
+        <br>
+    </patient>
+</patientList>
+</body>
+</html>
